@@ -17,6 +17,7 @@ export default function Home() {
             setLongitude(position.coords.longitude);
         })
     },[])
+
     const handleClick = (e) => {
         e.preventDefault();
         axios.get(`${geoCode}latlng=${latitude},${longitude}&key=${API_KEY}`).then(res=>{console.log(res.data)});
@@ -24,13 +25,9 @@ export default function Home() {
         .then(res=>
             {
                 console.log(res.data.results);
-                setPlace(res.data);
+                setPlace(res.data.results);
                 console.log(place)
             });
-       
-            return(
-                <Maploader places={place.results} lat={Number(latitude)} lng={Number(longitude)}/>
-            )
       }
 
   //<Maploader lat={Number(latitude)} long={Number(longitude)}/>  /<Placesrender/>
@@ -38,7 +35,7 @@ export default function Home() {
     <div className="flex-container">
         <p>Find 1000 restaurants close to your current location</p>
         <button onClick={handleClick} className='button'>Locate Restaurants</button>
-        
+        <Maploader lat={Number(latitude)} lng={Number(longitude)} places={place}/>
     </div>
   )
 }

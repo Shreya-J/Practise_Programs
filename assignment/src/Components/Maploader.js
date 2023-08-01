@@ -15,15 +15,24 @@ function Maploader(props) {
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyAoHHaTxMhoWmEO2SrEDsFtvMcep7EWyMM"
   })
-  
   console.log(props)
-  let itemList=props.places.map((item)=>{
-    return <Marker position={item.geometry.location}></Marker>
-  })
-
+let itemList;
+  if(props.places){
+       console.log(props)
+        itemList=props.places.map((item)=>{
+            return <Marker position={item.geometry.location}></Marker>
+        })
+        }
+  else{
+    itemList=()=>{
+             return(
+           <div>Loading...</div>
+        )
+ }
+}
   const center = {
     lat: props.lat,
-    lng: props.long
+    lng: props.lng
   };
   /*
   const [map, setMap] = React.useState(null)
@@ -48,6 +57,7 @@ function Maploader(props) {
         //onLoad={onLoad}
         //onUnmount={onUnmount}
       >
+        <Marker position={center}></Marker>
         {itemList}
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
